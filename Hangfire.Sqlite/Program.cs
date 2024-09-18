@@ -5,13 +5,13 @@ using Hangfire.Storage.SQLite;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHangfire(config =>
-{
-    config.UseSQLiteStorage("database/hangfire.db", new SQLiteStorageOptions
+builder.Services.AddHangfire(config => config
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSQLiteStorage("database/hangfire.db", new SQLiteStorageOptions
     {
         QueuePollInterval = TimeSpan.FromSeconds(5)
-    });
-});
+    }));
 
 builder.Services.AddHangfireServer();
 
