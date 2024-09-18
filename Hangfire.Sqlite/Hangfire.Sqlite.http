@@ -1,0 +1,9 @@
+@Hangfire.Sqlite_HostAddress = https://localhost:7061
+
+GET {{Hangfire.Sqlite_HostAddress}}/job1
+
+###
+
+GET {{Hangfire.Sqlite_HostAddress}}/job2
+
+###
