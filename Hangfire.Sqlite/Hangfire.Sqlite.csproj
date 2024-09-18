@@ -11,8 +11,4 @@
     <PackageReference Include="Hangfire.Storage.SQLite" Version="0.4.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Database\" />
-  </ItemGroup>
-
 </Project>
