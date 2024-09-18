@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHangfire(config => config
     .UseSimpleAssemblyNameTypeSerializer()
     .UseRecommendedSerializerSettings()
-    .UseSQLiteStorage("database/hangfire.db", new SQLiteStorageOptions
+    .UseSQLiteStorage("Database/hangfire.db", new SQLiteStorageOptions
     {
         QueuePollInterval = TimeSpan.FromSeconds(5)
     }));
