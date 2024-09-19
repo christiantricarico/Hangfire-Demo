@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHangfire(config => config
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
     .UseSimpleAssemblyNameTypeSerializer()
     .UseRecommendedSerializerSettings()
     .UseSQLiteStorage("Database/hangfire.db", new SQLiteStorageOptions
@@ -21,8 +22,9 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseHangfireDashboard();
 app.UseHttpsRedirection();
+
+app.UseHangfireDashboard();
 
 app.MapGet("/job1", () =>
 {
