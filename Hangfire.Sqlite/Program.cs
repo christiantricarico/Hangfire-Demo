@@ -1,10 +1,12 @@
 using Hangfire;
+using Hangfire.Sqlite.Dashboard;
 using Hangfire.Sqlite.Services;
 using Hangfire.Storage.SQLite;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddHangfire(config => config
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
     .UseSimpleAssemblyNameTypeSerializer()
@@ -24,7 +26,25 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseHangfireDashboard();
+var filter = new DashboardAuthorizationFilter(new DashboardAuthorizationFilterOptions
+{
+    RequireSsl = false,
+    SslRedirect = false,
+    LoginCaseSensitive = true,
+    Users =
+    [
+        new DashboardAuthorizationUser
+        {
+            Login = "admin",
+            PasswordClear =  "admin"
+        }
+    ]
+});
+
+app.UseHangfireDashboard(options: new DashboardOptions
+{
+    Authorization = [filter]
+});
 
 app.MapGet("/job1", () =>
 {
